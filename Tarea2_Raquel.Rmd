@@ -1,0 +1,140 @@
+---
+title: "Solución Tarea 2"
+author: "Raquel Bone Guzmán"
+date: "10/6/2020"
+output: 
+  html_document: 
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    theme: paper
+    highlight: textmate
+---
+
+<style type="text/css">
+
+h1.title {
+  color: DarkGreen;
+  font-weight: bold;
+  text-align: center;
+}
+h4.author {
+  color: Black;
+  font-weight: bold;
+  text-align: center;
+}
+h4.date { 
+  color: Black;
+  text-align: center;
+}
+
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Cargar la función
+
+Con el siguiente código cargamos la función en nuestro ambiente de trabajo
+
+```{r}
+
+source("./scripts/replicar_reg_scal.R")
+
+```
+
+## Calculamos la proporción de falsos positivos
+
+### Variando el número de variables
+
+A continuación realizamos el cálculo para distintos números de variables por iteración (**nvars**) de 10, 20, 50 y 100.
+
+```{r}
+
+# Con 10
+fal_pos10 <- replicar_reg_scal(itr = 20, n = 30, nvars = 10, alfa = 0.05)
+fal_pos10
+
+# Con 20
+fal_pos20 <- replicar_reg_scal(itr = 20, n = 30, nvars = 20, alfa = 0.05)
+fal_pos20
+
+# Con 50
+fal_pos50 <- replicar_reg_scal(itr = 20, n = 30, nvars = 50, alfa = 0.05)
+fal_pos50
+
+# Con 100
+fal_pos100 <- replicar_reg_scal(itr = 20, n = 30, nvars = 100, alfa = 0.05)
+fal_pos100
+
+```
+### Gráfico 1
+
+Graficamos el número de variables vs. la proporción de falsos positivos
+
+```{r, fig.align='center'}
+
+# Hacemos objetos que corresponden a nuestras variables para el gráfico
+num_var <- c(10, 20, 50, 100)
+prop_falpos <- c(fal_pos10, fal_pos20, fal_pos50, fal_pos100)
+
+# Función para graficar
+plot(prop_falpos, num_var, ylab = "Número de variables", xlab= "Proporción de falsos positivos")
+
+```
+
+### Variando el valor de alfa
+
+A continuación realizamos el cálculo para distintos valores de **alfa** de 0.05, 0.01 y 0.001.
+
+```{r}
+
+# Con 0.05
+fal_pos05 <- replicar_reg_scal(itr = 20, n = 30, nvars = 50, alfa = 0.05)
+fal_pos05
+
+# Con 0.03
+fal_pos03 <- replicar_reg_scal(itr = 20, n = 30, nvars = 50, alfa = 0.03)
+fal_pos03
+
+# Con 0.01
+fal_pos01 <- replicar_reg_scal(itr = 20, n = 30, nvars = 50, alfa = 0.01)
+fal_pos01
+
+# Con 0.001
+fal_pos001 <- replicar_reg_scal(itr = 20, n = 30, nvars = 50, alfa = 0.001)
+fal_pos001
+
+```
+### Gráfico 2
+
+Graficamos los valores de alfa vs. la proporción de falsos positivos
+
+```{r, fig.align='center'}
+
+# Hacemos objetos que corresponden a nuestras variables para el gráfico
+num_vara <- c(0.05, 0.03, 0.01, 0.001)
+prop_falpos2 <- c(fal_pos05, fal_pos03, fal_pos01, fal_pos001)
+
+# Función para graficar
+plot(prop_falpos2, num_vara, ylab = "Valor de alfa", xlab= "Proporción de falsos positivos")
+
+```
+
+## Información de la sesión
+
+```{r, echo=FALSE}
+
+sessionInfo()
+
+```
+
+## Imagen de organismo favorito
+
+Jaguar (*Panthera onca*)
+
+![](Lwazo_Vic20.jpg)
+
+
